@@ -24,7 +24,7 @@ public class Lesson {
     }
 
     public String toString() {
-        return "Lesson: " + this.title;
+        return "ID: " + this.lessonId + " - " + this.title;
     }
 }
 

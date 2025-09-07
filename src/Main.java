@@ -36,12 +36,18 @@ public class Main {
                             manager.addLesson(scanner);
                             break;
                         case 3:
+                            manager.enrollStudentInLesson(scanner);
                             break;
                         case 4:
+                            manager.assignGrade(scanner);
                             break;
                         case 5:
+                            manager.searchStudent(scanner);
                             break;
                         case 6:
+                            manager.showStudentLessonsAndGrades(scanner);
+                            break;
+                        case 7:
                             break;
                     }
                 } else {
