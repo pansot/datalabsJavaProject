@@ -37,8 +37,6 @@ public class Grade {
     }
 
     public String toString() {
-        return "Student: " + this.student +
-                "\nLesson: " + this.lesson +
-                "\nGrade: " + this.grade;
+        return "Student: " + this.student + " | Lesson: " + this.lesson + " | Grade: " + this.grade;
     }
 }

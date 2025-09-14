@@ -9,13 +9,16 @@ public class Main {
 
 
         while (true) {
-            System.out.println("Choose one of the options below. Type 1-6 according to your choice, or 0 to exit");
+            System.out.println("Choose one of the options below. Type 1-9 according to your choice, or 0 to exit");
             System.out.println("1. Add student");
             System.out.println("2. Add lesson");
             System.out.println("3. Enroll a student in a lesson");
             System.out.println("4. Assign grade to a student for a lesson");
             System.out.println("5. Search for a student");
             System.out.println("6. Show all lessons and grades of a student");
+            System.out.println("7. Delete student");
+            System.out.println("8. Delete lesson");
+            System.out.println("9. Delete grade");
 
             String userInput = scanner.nextLine();
 
@@ -27,7 +30,7 @@ public class Main {
                     break;
                 }
 
-                if (convertedInput >= 1 && convertedInput <= 6) {
+                if (convertedInput >= 1 && convertedInput <= 9) {
                     switch (convertedInput) {
                         case 1:
                             manager.addStudent(scanner);
@@ -48,6 +51,13 @@ public class Main {
                             manager.showStudentLessonsAndGrades(scanner);
                             break;
                         case 7:
+                            manager.deleteStudent(scanner);
+                            break;
+                        case 8:
+                            manager.deleteLesson(scanner);
+                            break;
+                        case 9:
+                            manager.deleteGrade(scanner);
                             break;
                     }
                 } else {

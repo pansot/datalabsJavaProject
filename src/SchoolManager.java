@@ -295,6 +295,14 @@ public class SchoolManager {
         studentEnrollments.get(panos).add(math);
         studentEnrollments.get(panos).add(physics);
         studentEnrollments.get(nikos).add(history);
+
+        Grade grade1 = new Grade(panos, math, 8.5);
+        Grade grade2 = new Grade(panos, physics, 7.0);
+        Grade grade3 = new Grade(nikos, history, 9.5);
+
+        grades.add(grade1);
+        grades.add(grade2);
+        grades.add(grade3);
     }
 
     public void searchStudent(Scanner scanner) {
@@ -344,7 +352,7 @@ public class SchoolManager {
                 System.out.println("No student found with this ID. Try again.");
             } else {
 
-                System.out.println(foundStudent.getFirstName() + " " + foundStudent.getLastName() + " lessons and grade: ");
+                System.out.println(foundStudent.getFirstName() + " " + foundStudent.getLastName() + " lessons and grades: ");
 
                 boolean hasGrades = false;
                 for (Grade grade : grades) {
@@ -357,6 +365,105 @@ public class SchoolManager {
         }catch (NumberFormatException e) {
             System.out.println("Invalid input. Please type a valid ID.");
             return;
+        }
+    }
+
+    public void deleteGrade (Scanner scanner) {
+        if (grades.isEmpty()) {
+            System.out.println("No grades available to delete.");
+            return;
+        }
+
+        System.out.println("Available grades: ");
+
+        int counter = 1;
+        for (Grade grade : grades) {
+            System.out.println(counter + ". " + grade);
+            counter++;
+        }
+
+        System.out.println("Enter the number of the grade you want to delete (1-" + grades.size() + "):");
+        try {
+            int input = Integer.parseInt(scanner.nextLine());
+
+            if (input <= 0 || input > grades.size()) {
+                System.out.println("There is no grade with this ID. Please try again.");
+                return;
+            } else {
+                Grade gradeToDelete = grades.get(input -1);
+                grades.remove(gradeToDelete);
+                System.out.println("Grade deleted succesfully: " + gradeToDelete);
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input. Please type a valid ID from the list.");
+        }
+    }
+
+    public void deleteLesson (Scanner scanner) {
+        if (lessons.isEmpty()) {
+            System.out.println("No lessons available to delete.");
+            return;
+        }
+
+        System.out.println("Available lessons: ");
+
+        int counter = 1;
+        for (Lesson lesson : lessons) {
+            System.out.println(counter + ". " + lesson);
+            counter++;
+        }
+
+        System.out.println("Enter the number of the lesson you want to delete (1-" + lessons.size() + "):");
+        try {
+            int input = Integer.parseInt(scanner.nextLine());
+
+            if (input <= 0 || input > lessons.size()) {
+                System.out.println("There is no lesson with this ID. Please try again.");
+                return;
+            } else {
+                Lesson lessonToDelete = lessons.get(input -1);
+                lessons.remove(lessonToDelete);
+                grades.removeIf(grade -> grade.getLesson() == lessonToDelete);
+                for (Student student : studentEnrollments.keySet()) {
+                    studentEnrollments.get(student).remove(lessonToDelete);
+                }
+                System.out.println("Lesson deleted succesfully: " + lessonToDelete);
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input. Please type a valid ID from the list.");
+        }
+    }
+
+    public void deleteStudent (Scanner scanner) {
+        if (students.isEmpty()) {
+            System.out.println("No students available to delete.");
+            return;
+        }
+
+        System.out.println("Available students: ");
+
+        int counter = 1;
+        for (Student student : students) {
+            System.out.println(counter + ". " + student);
+            counter++;
+        }
+
+        System.out.println("Enter the number of the student you want to delete (1-" + students.size() + "):");
+        try {
+            int input = Integer.parseInt(scanner.nextLine());
+
+            if (input <= 0 || input > students.size()) {
+                System.out.println("There is no student with this ID. Please try again.");
+                return;
+            } else {
+                Student studentToDelete = students.get(input -1);
+                students.remove(studentToDelete);
+                grades.removeIf(grade -> grade.getStudent() == studentToDelete);
+                studentEnrollments.remove(studentToDelete);
+                System.out.println("Student deleted succesfully: " + studentToDelete);
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input. Please type a valid ID from the list.");
         }
     }
 }
